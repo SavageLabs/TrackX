@@ -14,6 +14,7 @@ public class TrackX {
     private String pluginId;
     private String version;
     private String includes;
+    private static boolean reporting = false;
 
     private TrackX(String pluginId, String version, String inludes) {
         this.pluginId = pluginId;
@@ -49,6 +50,8 @@ public class TrackX {
     }
 
     private void handleException(String s) {
+        if(reporting) return;
+        reporting = true;
         if (s.contains(includes)) {
             if (!reportedTraces.contains(s)) {
                 reportedTraces.add(s);
@@ -73,6 +76,7 @@ public class TrackX {
                 }
                 try {
                     pushUpdate(builder.toString());
+                    reporting = false;
                 } catch (IOException e) {
                     // error during connection
                 }

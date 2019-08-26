@@ -2,3 +2,7 @@ client/build
 client/.gradle
 service/node_modules
 client/.idea
+client/bin
+client/.classpath
+client/.project
+client/.settings
