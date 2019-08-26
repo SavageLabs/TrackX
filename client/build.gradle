@@ -2,9 +2,10 @@ plugins {
     id 'java'
 }
 apply plugin: 'application'
-
+apply plugin: 'maven-publish'
 group 'net.savagellc'
 version '1.0'
+
 mainClassName = "net.savagellc.trackx.TestMain"
 
 sourceCompatibility = 1.8
@@ -15,4 +16,14 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
+}
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = group
+            artifactId 'track-x'
+            version '1.0'
+            from components.java
+        }
+    }
 }
