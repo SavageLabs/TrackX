@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Error Tracker Online service",
   "main": "index.js",
-  "author": "Liz3]",
+  "author": "Liz3",
   "license": "MIT",
   "private": true,
   "dependencies": {
