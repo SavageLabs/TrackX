@@ -1,6 +1,7 @@
 console.log("BOOTRAPPING Reporter");
 const discord = require("./discord")
 const express = require("express");
+const paste = require("./paste");
 const parser = require("body-parser");
 const { allowed } = require("./config");
 const recents = [];
@@ -17,7 +18,7 @@ server.post("/report", (request, response) => {
         response.end("illegal plugin");
         return;
     }
-    if(trace.length < 10 || trace.length > 1200) {
+    if(trace.length < 10 || trace.length > 8000) {
         response.end("bad size");
         return;
     }
@@ -30,12 +31,14 @@ server.post("/report", (request, response) => {
         response.end("to_rec");
         return;
     }
-    const message = "**Report**\n" + `Plugin: ${pluginId}\nVersion: ${version}\nIp Address: ${ip}\nStack Trace:\n` + "```" + trace + "```";
-    discord.pushReport(message).then(() => response.end("reported")).catch(err => response.end("internal error"))
-    recents.push(ip);
-    setTimeout(() => {
-        recents.splice(recents.indexOf(ip), 1);
-    }, 1000 * 10) // 10 seconds
+    paste(trace).then(pasteId => {
+        const message = "**Report**\n" + `Plugin: ${pluginId}\nVersion: ${version}\nIp Address: ${ip}\nOpenGist: https://paste.savagellc.net/view/${pasteId}\nRaw: https://paste.savagellc.net/raw-display/${pasteId}`;
+        discord.pushReport(message).then(() => response.end("reported")).catch(err => response.end("internal error"))
+        recents.push(ip);
+        setTimeout(() => {
+            recents.splice(recents.indexOf(ip), 1);
+        }, 1000 * 10) // 10 seconds
+    }).catch(err => response.end("internal_err"))
 });
 discord.handleConnect().then(() => {
     server.listen(8080, () =>{ 
