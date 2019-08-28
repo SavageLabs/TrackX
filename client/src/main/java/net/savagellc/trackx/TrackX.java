@@ -60,7 +60,7 @@ public class TrackX {
             Bukkit.getLogger().addHandler(handler);
         } catch (Exception e) {
             System.out.println("[TrackX] Failed to attach handler");
-            failed = false;
+            failed = true;
         }
     }
 
