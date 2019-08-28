@@ -8,8 +8,8 @@ version '1.0'
 
 mainClassName = "net.savagellc.trackx.TestMain"
 sourceCompatibility = 1.8
-compileJava.options.fork = true
-compileJava.options.forkOptions.executable = '/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/bin/javac'
+//compileJava.options.fork = true
+//compileJava.options.forkOptions.executable = '/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/bin/javac'
 repositories {
     mavenCentral()
         maven {
