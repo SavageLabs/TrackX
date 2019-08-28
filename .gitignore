@@ -6,3 +6,4 @@ client/bin
 client/.classpath
 client/.project
 client/.settings
+client/.vscode

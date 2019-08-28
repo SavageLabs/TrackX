@@ -7,14 +7,24 @@ group 'net.savagellc'
 version '1.0'
 
 mainClassName = "net.savagellc.trackx.TestMain"
-
 sourceCompatibility = 1.8
-
+compileJava.options.fork = true
+compileJava.options.forkOptions.executable = '/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home/bin/javac'
 repositories {
     mavenCentral()
+        maven {
+        url 'https://hub.spigotmc.org/nexus/content/groups/public/'
+    }
 }
 
 dependencies {
+        compileOnly ('org.spigotmc:spigot-api:1.13-R0.1-SNAPSHOT') {
+        exclude group: 'net.md-5', module: 'bungeecord-chat'
+        exclude group: 'javax.persistence', module: 'persistence-api'
+        exclude group: 'junit', module: 'junit'
+        exclude group: 'com.google.guava', module: 'guava'
+        exclude group: 'com.google.code.gson', module: 'gson'
+    }
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 publishing {
