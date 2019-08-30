@@ -57,6 +57,7 @@ public class TrackX {
                 public void close() throws SecurityException {
                 }
             };
+            
             Bukkit.getLogger().addHandler(handler);
         } catch (Exception e) {
             System.out.println("[TrackX] Failed to attach handler");
@@ -88,7 +89,6 @@ public class TrackX {
         if (s.contains(includes)) {
             if (!reportedTraces.contains(s)) {
                 System.out.println("[TrackX] Reporting issue...");
-                reportedTraces.add(s);
                 if (reportedTraces.size() > 30)
                     reportedTraces.remove(0);
                 StringBuilder builder = new StringBuilder();
@@ -105,15 +105,24 @@ public class TrackX {
                 }
                 builder.append("&");
                 try {
+                    builder.append(Utils.encodeParam("mcver", Bukkit.getVersion()));
+                } catch (UnsupportedEncodingException e) {
+                    // should never happen
+                }
+                builder.append("&");
+                try {
                     builder.append(Utils.encodeParam("trace", s));
                 } catch (UnsupportedEncodingException e) {
                     // should never happen
                 }
+                
                 try {
                     pushUpdate(builder.toString());
                     reporting = false;
+                    reportedTraces.add(s);
                 } catch (IOException e) {
                     // error during connection
+                    reporting = false;
                 }
             }
         }

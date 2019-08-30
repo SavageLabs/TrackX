@@ -26,13 +26,14 @@ server.post("/report", (request, response) => {
         response.end("bad size");
         return;
     }
-    const ip =  request.headers['x-forwarded-for'] || request.connection.remoteAddress;
+    const ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress;
     if(recents.includes(ip)) {
         response.end("to_rec");
         return;
     }
+    const serverVersion = request.body.mcver ? request.body.mcver : "-";
     paste(trace).then(pasteId => {
-        const message = "**Report**\n" + `Plugin: ${pluginId}\nVersion: ${version}\nIp Address: ${ip}\nOpenGist: https://paste.savagellc.net/view/${pasteId}\nRaw: https://paste.savagellc.net/raw-display/${pasteId}`;
+        const message = "**Report**\n" + `Plugin: ${pluginId}\nVersion: ${version}\nIp Address: ${ip}\nServer Version: ${serverVersion}\nOpenGist: https://paste.savagellc.net/view/${pasteId}\nRaw: https://paste.savagellc.net/raw-display/${pasteId}`;
         discord.pushReport(message).then(() => response.end("reported")).catch(err => response.end("internal error"))
         recents.push(ip);
         setTimeout(() => {
