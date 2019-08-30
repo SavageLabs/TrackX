@@ -66,7 +66,7 @@ public class TrackX {
     }
 
     private void pushUpdate(String preparedMessage) throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) new URL("https://savage-error-tracker.appspot.com/report")
+        HttpURLConnection connection = (HttpURLConnection) new URL("https://trackx-dot-savagellc.appspot.com/report")
                 .openConnection();
         connection.setRequestProperty("Content-type", "application/x-www-form-urlencoded");
         connection.setRequestMethod("POST");

@@ -9,6 +9,7 @@ module.exports = {
     "obsidianbreaker",
     "savagefactionsx",
     "savagecorex",
-    "savageoutpost"
+    "savageoutpost",
+    "syncspawners"
   ]
 };
