@@ -1,9 +1,9 @@
-console.log("BOOTRAPPING Reporter");
+const { allowed, version: appVersion } = require("./config");
+console.log(`BOOTRAPPING TrackX (${appVersion})`);
 const discord = require("./discord")
 const express = require("express");
 const paste = require("./paste");
 const parser = require("body-parser");
-const { allowed } = require("./config");
 const recents = [];
 const server = express();
 server.use(parser.urlencoded());
@@ -38,7 +38,7 @@ server.post("/report", (request, response) => {
         recents.push(ip);
         setTimeout(() => {
             recents.splice(recents.indexOf(ip), 1);
-        }, 1000 * 10) // 10 seconds
+        }, 1000 * 60 * 3) // 3 minutes
     }).catch(err => response.end("internal_err"))
 });
 server.post("/proxy", (request, response) => {
@@ -71,12 +71,12 @@ server.post("/proxy", (request, response) => {
         recents.push(ip);
         setTimeout(() => {
             recents.splice(recents.indexOf(ip), 1);
-        }, 1000 * 10) // 10 seconds
+        }, 1000 * 60 * 3) // 3 minutes
     }).catch(err => response.end("internal_err - proxy"))
 });
 discord.handleConnect().then(() => {
     server.listen(8080, () =>{ 
-        discord.pushReport("Backend Running!");
+        discord.pushReport(`TrackX ${appVersion} started`);
         console.log("http node deployed")
     })
 })
