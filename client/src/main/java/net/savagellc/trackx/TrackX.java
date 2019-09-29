@@ -44,8 +44,12 @@ public class TrackX {
                 @Override
                 public void publish(LogRecord record) {
                     if (record.getThrown() != null) {
+                     try {
                         String handleError = record.getMessage() + "\n" + Utils.throwableToString(record.getThrown());
                         handle(handleError);
+                     } catch(Exception err) {
+                         System.out.println("[TrackX] Failed report due to " + err.getMessage());
+                     }
                     }
                 }
 
