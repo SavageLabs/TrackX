@@ -1,5 +1,5 @@
 module.exports = {
-  version: 1.1,
+  version: 1.3,
   botToken: "",
   serverId: "",
   channelId: "615310342914048002",
