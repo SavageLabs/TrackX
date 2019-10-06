@@ -3,7 +3,7 @@ plugins {
 }
 apply plugin: 'application'
 group 'net.savagellc'
-version '1.4'
+version '1.5'
 
 mainClassName = "net.savagellc.trackx.TestMain"
 sourceCompatibility = 1.8
